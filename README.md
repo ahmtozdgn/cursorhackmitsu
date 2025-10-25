@@ -1,36 +1,130 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📚 FlashLearn - Kelime Öğrenme Uygulaması
 
-## Getting Started
+Swipe tabanlı flashcard sistemiyle İngilizce-Türkçe kelime öğrenme uygulaması.
 
-First, run the development server:
+## 🚀 Özellikler
+
+- **Swipe Öğrenme:** Kelimeleri sağa-sola kaydırarak bildiğinizi veya bilmediğinizi belirtin
+- **Flip Kartlar:** Kartı çevirerek kelimenin karşılığını görün
+- **İlerleme Takibi:** Öğrenme istatistiklerinizi detaylı olarak takip edin
+- **Custom Kelimeler:** Kendi kelimelerinizi ekleyin
+- **100 Default Kelime:** Başlangıç için hazır kelime seti
+- **Supabase Auth:** Güvenli kullanıcı girişi
+- **Responsive Tasarım:** Mobil ve masaüstünde mükemmel çalışır
+
+## 🛠️ Teknolojiler
+
+- **Frontend:** Next.js 16, React 19, TypeScript
+- **Styling:** Tailwind CSS 4
+- **Database:** Supabase (PostgreSQL)
+- **Authentication:** Supabase Auth
+
+## 📦 Kurulum
+
+Detaylı kurulum talimatları için [SETUP.md](./SETUP.md) dosyasına bakın.
+
+### Hızlı Başlangıç
 
 ```bash
+# Bağımlılıkları yükle
+npm install
+
+# .env.local dosyası oluştur ve Supabase bilgilerini ekle
+NEXT_PUBLIC_SUPABASE_URL=your_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_key
+
+# Geliştirme sunucusunu başlat
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📁 Proje Yapısı
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+├── app/
+│   ├── (auth)/
+│   │   ├── login/          # Giriş sayfası
+│   │   └── signup/         # Kayıt sayfası
+│   ├── dashboard/          # Korumalı sayfalar
+│   │   ├── learn/          # Flashcard öğrenme sayfası
+│   │   ├── words/          # Kelime listesi
+│   │   ├── add-word/       # Yeni kelime ekleme
+│   │   └── page.tsx        # Dashboard ana sayfa
+│   ├── api/
+│   │   └── init-words/     # Default kelimeleri yükleme API
+│   └── page.tsx            # Landing page
+├── components/
+│   ├── flashcard.tsx       # Swipe özellikli kart
+│   └── navigation.tsx      # Navigasyon barı
+├── lib/
+│   ├── supabase/           # Supabase client/server
+│   └── types/              # TypeScript type'lar
+└── data/
+    └── default-words.json  # 100 başlangıç kelimesi
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🎯 Kullanım
 
-## Learn More
+1. **Kayıt Ol:** Email ve şifre ile hesap oluşturun
+2. **Giriş Yap:** Hesabınıza giriş yapın
+3. **Öğrenmeye Başla:** "Öğren" sayfasına gidin
+4. **Swipe:** 
+   - Sağa kaydır (✓) → Kelimeyi biliyorum
+   - Sola kaydır (✗) → Kelimeyi bilmiyorum
+5. **Kartı Çevir:** Kartı tıklayarak Türkçe karşılığını görün
+6. **İlerleme:** Dashboard'da istatistiklerinizi takip edin
 
-To learn more about Next.js, take a look at the following resources:
+## 🗄️ Database Şeması
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### words
+- `id` - UUID
+- `english` - Kelime (İngilizce)
+- `turkish` - Çeviri (Türkçe)
+- `is_default` - Varsayılan kelime mi?
+- `created_by` - Oluşturan kullanıcı
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### user_progress
+- `id` - UUID
+- `user_id` - Kullanıcı
+- `word_id` - Kelime
+- `is_known` - Biliniyor mu?
+- `last_reviewed` - Son görülme
+- `review_count` - Görülme sayısı
 
-## Deploy on Vercel
+## 🔒 Güvenlik
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Row Level Security (RLS) aktif
+- Kullanıcılar sadece kendi verilerini görebilir
+- Default kelimeler herkese açık
+- Custom kelimeler sadece oluşturana özel
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🎨 Tasarım
+
+- Modern gradient renkler
+- Smooth animasyonlar
+- 3D flip efektleri
+- Touch/swipe friendly
+- Responsive layout
+
+## 📝 Hackathon İçin Notlar
+
+Bu proje 3 saatlik bir hackathon için tasarlanmıştır:
+- ✅ Temel özellikler hazır
+- ✅ Database schema oluşturuldu
+- ✅ Authentication sistemi
+- ✅ Flashcard component
+- ✅ İlerleme takibi
+- 🎨 Tasarım özelleştirmeye açık
+
+## 🚧 Geliştirme Fikirleri
+
+- AI ile örnek cümleler
+- Sesli telaffuz
+- Spaced repetition algoritması
+- Daha fazla dil desteği
+- Sosyal özellikler (kelime seti paylaşımı)
+- Başarı rozetleri
+- Günlük hedefler
+
+## 📄 Lisans
+
+MIT
